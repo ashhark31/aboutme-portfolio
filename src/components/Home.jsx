@@ -31,7 +31,7 @@ const Home = () => {
                     overflow: 'hidden'
                 }}
             >
-                <Flex className='flex sm:flex-col sm:items-center md:flex-row' justify="space-between">
+                <Flex className='flex sm:flex-col sm:items-center xl:flex-row' justify="space-between">
                     <img
                         className='class="h-full w-full rounded-xl object-cover"'
                         alt="avatar"
