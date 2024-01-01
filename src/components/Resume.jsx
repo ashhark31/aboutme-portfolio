@@ -25,14 +25,11 @@ const Description = ({project}) => {
                     <Alert
                         message={
                             <div className='flex flex-col m-4'>
-                                <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-y-4 mb-4'>
+                                <div className='grid justify-items-center grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-y-4 mb-4'>
                                     {
                                         project?.techUsed?.map((tech) => {
                                             return (
-                                                <>
-                                                <Alert className='w-fit' message={tech} type="success" />                                
-                                                <Alert className='w-fit' message={tech} type="success" />                                
-                                                </>
+                                                <Alert className='w-fit' message={tech} type="success" />                                                           
                                             );
                                         })
                                     }
@@ -63,9 +60,9 @@ const SkillsType = ({skillName,skills}) => {
                         message={
                             skills?.map((skill) => {
                                 return (
-                                    <div className='m-4'>
+                                    <div className='m-4 text-center'>
                                         <dt className="text-sm my-4 text-center font-medium leading-6 text-gray-900">{skill?.name}</dt>
-                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                                        <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0 grid justify-items-stretch grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                                             {
                                                 skill?.keywords?.map((key) => {
                                                     return (
@@ -229,7 +226,7 @@ const Resume = () => {
                     <Descriptions.Item>
                         <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'>
                         {
-                            projInfo?.map((project) => {
+                            projInfo?.slice(0)?.reverse()?.map((project) => {
                                 return (
                                     <Description project={project} />
                                 )
@@ -246,7 +243,9 @@ const Resume = () => {
                                 skillsInfo[0]?.technical
                                 ?
                                     <SkillsType skillName="Technical" skills={skillsInfo[0]?.technical} />
-                                :
+                                :   <></>
+                            }   
+                            {
                                 skillsInfo[0]?.behaivioral
                                 ?
                                     <SkillsType skillName="Behavioral" skills={skillsInfo[0]?.behaivioral} />
