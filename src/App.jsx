@@ -52,7 +52,7 @@ const Elements = () => {
       <Element name="blog">
         <Blog />
       </Element>
-      <Element name="testimonials">
+      <Element name="feedback">
         <Testimonials />
       </Element>
       <Element name="contact">
