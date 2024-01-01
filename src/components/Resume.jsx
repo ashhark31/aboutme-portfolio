@@ -152,7 +152,7 @@ const Resume = () => {
                         <Descriptions.Item>
                             <Steps direction="vertical">
                                 {
-                                    eduInfo?.slice(0)?.reverse()?.map((edu,index) => {
+                                    eduInfo?.map((edu,index) => {
                                         return (
                                             <Steps.Item 
                                                 key={index+1} 
@@ -186,7 +186,7 @@ const Resume = () => {
                         <Descriptions.Item>
                             <Steps direction="vertical">
                                 {
-                                    expInfo?.slice(0)?.reverse()?.map((exp,index) => {
+                                    expInfo?.map((exp,index) => {
                                         return (
                                             <Steps.Item 
                                                 key={index+1} 
@@ -226,7 +226,7 @@ const Resume = () => {
                     <Descriptions.Item>
                         <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'>
                         {
-                            projInfo?.slice(0)?.reverse()?.map((project) => {
+                            projInfo?.map((project) => {
                                 return (
                                     <Description project={project} />
                                 )

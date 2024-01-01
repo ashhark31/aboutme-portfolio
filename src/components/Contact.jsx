@@ -20,45 +20,43 @@ const Contact = () => {
     baseInfo[0]?.key  &&
       <div className='container my-12'>
           <Descriptions title="Contact"></Descriptions>
-                <Alert 
-                  className='w-full testi-alert p-12'
-                  message={
-                    <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>                    
-                      <Card className='flex justify-center'>
-                        <MailOutlined className='text-xl flex justify-center mb-4' />
-                        <a
-                          className='font-semibold'
-                          target='_blank' 
-                          href={baseInfo[0]?.userEmailInfo}
-                        >
-                            {baseInfo[0]?.userEmailInfo}
-                        </a>
-                      </Card>   
-                      <Card className='flex justify-center'>
-                        <LinkedinOutlined className='text-xl flex justify-center mb-4' />
-                        <a
-                          className='font-semibold'
-                          target='_blank' 
-                          href={baseInfo[0]?.linkedinInfoCtrl}
-                        >
-                            {baseInfo[0]?.linkedinInfoCtrl}
-                        </a>
-                      </Card>   
-                      <Card className='flex justify-center'>
-                        <TwitterOutlined className='text-xl flex justify-center mb-4' />
-                        <a
-                          className='font-semibold'
-                          target='_blank' 
-                          href={baseInfo[0]?.twitterInfoCtrl}
-                        >
-                            {baseInfo[0]?.twitterInfoCtrl}
-                        </a>
-                      </Card>                    
-                    </div>
-                  }
-                />
-          {/* </Descriptions.Item> */}
-        {/* </Descriptions> */}
+            <Alert 
+              className='w-full testi-alert p-12'
+              message={
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>                    
+                  <Card className='flex justify-center'>
+                    <MailOutlined className='text-xl flex justify-center mb-4' />
+                    <a
+                      className='font-semibold'
+                      target='_blank' 
+                      href={baseInfo[0]?.userEmailInfo}
+                    >
+                        {baseInfo[0]?.userEmailInfo}
+                    </a>
+                  </Card>   
+                  <Card className='flex justify-center'>
+                    <LinkedinOutlined className='text-xl flex justify-center mb-4' />
+                    <a
+                      className='font-semibold'
+                      target='_blank' 
+                      href={baseInfo[0]?.linkedinInfoCtrl}
+                    >
+                        {baseInfo[0]?.linkedinInfoCtrl}
+                    </a>
+                  </Card>   
+                  <Card className='flex justify-center'>
+                    <TwitterOutlined className='text-xl flex justify-center mb-4' />
+                    <a
+                      className='font-semibold'
+                      target='_blank' 
+                      href={baseInfo[0]?.twitterInfoCtrl}
+                    >
+                        {baseInfo[0]?.twitterInfoCtrl}
+                    </a>
+                  </Card>                    
+                </div>
+              }
+            />
       </div>
   )
 }
