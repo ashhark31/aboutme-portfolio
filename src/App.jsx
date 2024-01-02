@@ -5,12 +5,12 @@ import { Link as ScrollLink, Element } from 'react-scroll';
 import { Aboutme, Blog, Contact, Home, Resume, Testimonials } from './components';
 
 const { Header, Content, Footer } = Layout;
-const navData = ['aboutme', 'resume', 'blog', 'feedback', 'contact'];
+const navData = ['aboutme', 'resume', 'contact'];
 
 const NavMenus = () => {
   return (
     <Menu
-      theme='light'
+      theme='dark'
       mode="horizontal"
       defaultSelectedKeys={['5']}
       // items={items}
@@ -49,12 +49,12 @@ const Elements = () => {
       <Element name="resume">
         <Resume />
       </Element>
-      <Element name="blog">
+      {/* <Element name="blog">
         <Blog />
       </Element>
       <Element name="feedback">
         <Testimonials />
-      </Element>
+      </Element> */}
       <Element name="contact">
         <Contact />
       </Element>

@@ -10,26 +10,20 @@ const Description = ({project}) => {
         <Steps progressDot direction='vertical'>
             <Steps.Item 
                 title={
-                    <>
-                        <Alert
-                            message={<span className='font-semibold'>{project?.projectTitle}</span>}
-                            type="info"
-                        />        
-                        <Alert
-                            message={<a href={project?.url} target='_blank'>{project?.url}</a>}
-                            type="info"
-                        />    
-                    </>                                          
+                    <div className='flex flex-col'>
+                        <span className='font-semibold'>{project?.projectTitle}</span>
+                        <a href={project?.url} target='_blank'>{project?.url}</a>
+                    </div>                                          
                 }
                 description={
                     <Alert
                         message={
                             <div className='flex flex-col m-4'>
-                                <div className='grid justify-items-center grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-y-4 mb-4'>
+                                <div className='grid justify-items-stretch grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-4'>
                                     {
                                         project?.techUsed?.map((tech) => {
                                             return (
-                                                <Alert className='w-fit' message={tech} type="success" />                                                           
+                                                <Alert className='w-full text-center' message={tech} type="success" />                                                           
                                             );
                                         })
                                     }
@@ -45,41 +39,25 @@ const Description = ({project}) => {
     )
 }
 
-const SkillsType = ({skillName,skills}) => {
+const SkillsType = ({skills}) => {
     return (
-        <Steps progressDot direction='vertical'>
-            <Steps.Item 
-                title={
-                    <Alert
-                        message={<span className='font-semibold'>{skillName}</span>}
-                        type="info"
-                    />                                                    
-                }
-                description={
-                    <Alert
-                        message={
-                            skills?.map((skill) => {
+        <Alert
+            message={
+                <div className='m-4 text-center'>
+                    <dt className="text-sm my-4 text-center font-medium leading-6 text-gray-900">{skills?.name}</dt>
+                    <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0 grid justify-items-stretch grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                        {
+                            skills?.keywords?.map((key) => {
                                 return (
-                                    <div className='m-4 text-center'>
-                                        <dt className="text-sm my-4 text-center font-medium leading-6 text-gray-900">{skill?.name}</dt>
-                                        <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0 grid justify-items-stretch grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-                                            {
-                                                skill?.keywords?.map((key) => {
-                                                    return (
-                                                        <Alert message={key} type="success" />
-                                                    );
-                                                })
-                                            }                                                
-                                        </dd>
-                                    </div>           
-                                )
+                                    <Alert message={key} type="success" />
+                                );
                             })
-                        }
-                        type="info"
-                    />                                
-                }
-            />
-        </Steps>
+                        }                                                
+                    </dd>
+                </div>           
+            }
+            type="info"
+        />                                
     )
 }
 
@@ -88,25 +66,12 @@ const AchvmntAndCrtType = ({data}) => {
         <Steps progressDot direction='vertical'>
             <Steps.Item 
                 title={
-                    <>
-                        <Alert
-                            message={
-                                <div className="px-4 sm:px-0">
-                                    <span className='font-semibold'>
-                                        {data?.achvmntTitle ? data?.achvmntTitle : data?.certName}
-                                    </span>
-                                    
-                                </div>
-                            }
-                            type="info"
-                        />    
-                        <Alert
-                            message={
-                                <a href={data?.url} target='_blank'>{data?.url}</a>
-                            }
-                            type="info"
-                        />        
-                    </>
+                    <div className="px-4 sm:px-0 flex flex-col">
+                        <span className='font-semibold'>
+                            {data?.achvmntTitle ? data?.achvmntTitle : data?.certName}
+                        </span>
+                        <a href={data?.url} target='_blank'>{data?.url}</a>                
+                    </div>
                 }
                 description={
                     <Alert
@@ -144,7 +109,7 @@ const Resume = () => {
 
   return (
     eduInfo && expInfo &&
-        <div className='container my-12'>
+        <div className='container'>
             <Typography>
                 <div className='grid grid-cols-1 md:grid-cols-2'>
                     
@@ -157,10 +122,7 @@ const Resume = () => {
                                             <Steps.Item 
                                                 key={index+1} 
                                                 title={
-                                                    <Alert
-                                                        message={<span className='font-semibold'>{edu?.degreeName}</span>}
-                                                        type="info"
-                                                    />
+                                                    <span className='font-semibold'>{edu?.degreeName}</span>
                                                 }
                                                 description={
                                                     <Alert
@@ -191,10 +153,7 @@ const Resume = () => {
                                             <Steps.Item 
                                                 key={index+1} 
                                                 title={
-                                                    <Alert
-                                                        message={<span className='font-semibold'>{exp?.companyName}</span>}
-                                                        type="info"
-                                                    />                                                    
+                                                    <span className='font-semibold'>{exp?.companyName}</span>                                                   
                                                 }
                                                 description={
                                                     <Alert
@@ -238,17 +197,51 @@ const Resume = () => {
 
                 <Descriptions title="Skills" className='my-12'>
                     <Descriptions.Item>
-                        <div className='grid gap-4 grid-cols-1 md:grid-cols-2'>
+                        <div className='grid gap-4 grid-cols-1'>
                             {
                                 skillsInfo[0]?.technical
                                 ?
-                                    <SkillsType skillName="Technical" skills={skillsInfo[0]?.technical} />
+                                    <Steps progressDot direction='vertical'>
+                                        <Steps.Item 
+                                            title={
+                                                <span className='font-semibold'>Technical</span>
+                                            }
+                                            description={
+                                                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                                                {
+                                                    skillsInfo[0]?.technical?.map((technical) => {
+                                                        return (
+                                                            <SkillsType skills={technical} />
+                                                        );
+                                                    })   
+                                                }
+                                                </div>                           
+                                            }
+                                        />
+                                    </Steps>
                                 :   <></>
                             }   
                             {
                                 skillsInfo[0]?.behaivioral
                                 ?
-                                    <SkillsType skillName="Behavioral" skills={skillsInfo[0]?.behaivioral} />
+                                    <Steps progressDot direction='vertical'>
+                                        <Steps.Item 
+                                            title={
+                                                <span className='font-semibold'>Behavioral</span>
+                                            }
+                                            description={
+                                                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                                                {
+                                                    skillsInfo[0]?.behaivioral?.map((behaivioral) => {
+                                                        return (
+                                                            <SkillsType skills={behaivioral} />
+                                                        );
+                                                    })    
+                                                }                          
+                                                </div>
+                                            }
+                                        />
+                                    </Steps>
                                 :   <></>
                             }
                         </div>

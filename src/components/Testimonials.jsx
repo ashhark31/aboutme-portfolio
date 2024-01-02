@@ -5,7 +5,7 @@ import {useSelector,useDispatch} from 'react-redux'
 import { retrieveTestiInfoDetails } from '../api/retrieve.api';
 import {Avatar} from '@mui/material'
 import '../App.css'
-const {Title} = Typography
+const {Title,Text} = Typography
 const {Meta} = Card
 
 const Testimonials = () => {
@@ -26,15 +26,15 @@ const Testimonials = () => {
                 {
                     testiInfo?.map((testi) => {
                         return (
-                            <Alert
+                            <Card
                                 className='flex justify-center testi-alert p-12'
-                                message={
-                                    <Card className='w-[500px]'>
+                            >
+                                <Card className='w-[500px]'>
                                         <figure>
                                             <blockquote className="text-center text-lg leading-8 text-gray-900 sm:leading-9">
-                                                <p>
-                                                “{testi?.feedback}”
-                                                </p>
+                                                <Text type="secondary" className='text-xl'>
+                                                    “{testi?.feedback}”
+                                                </Text>
                                             </blockquote>
                                             <figcaption className="mt-10">
                                                 {
@@ -62,9 +62,7 @@ const Testimonials = () => {
                                             </figcaption>
                                         </figure>
                                     </Card>
-                                }
-                                type="info"
-                            />
+                            </Card>
                         );
                     })
                 }

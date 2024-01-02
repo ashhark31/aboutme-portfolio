@@ -20,10 +20,8 @@ const Contact = () => {
     baseInfo[0]?.key  &&
       <div className='container my-12'>
           <Descriptions title="Contact"></Descriptions>
-            <Alert 
-              className='w-full testi-alert p-12'
-              message={
-                <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>                    
+            <div className='w-full testi-alert p-12'>
+              <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>                    
                   <Card className='flex justify-center'>
                     <MailOutlined className='text-xl flex justify-center mb-4' />
                     <a
@@ -55,8 +53,7 @@ const Contact = () => {
                     </a>
                   </Card>                    
                 </div>
-              }
-            />
+            </div>
       </div>
   )
 }
