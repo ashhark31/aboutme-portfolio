@@ -48,7 +48,7 @@ const AchvmntAndCrtType = ({data}) => {
             bordered={false}
             style={{background:'transparent', color:'#fff'}}
         >
-            <div className='grid grid-cols-1'>
+            <div className='flex flex-col lg:flex-row lg:gap-x-[15px]'>
                 <div className='mb-[15px]'>
                     <Image
                         width={80}
@@ -306,7 +306,7 @@ const Resume = () => {
                         style={{background:'transparent', color:'#fff'}}
                     >
                         <span className='text-2xl'>Achievements</span>
-                        <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
+                        <div className='grid grid-cols-1'>
                             {
                                 achvmntInfo?.map((achieves) => {
                                     return (
