@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit'
 export const readApiDataSlice = createSlice({
     name: 'readApiData',
     initialState: {
+        userInfoData: {},
         keyInfoData: {},
         baseInfoData: [],
         eduInfoData: [],
@@ -16,6 +17,9 @@ export const readApiDataSlice = createSlice({
         blogInfoData: []
     },
     reducers: {
+        setUserInfoData: (state,action) => {
+            state.userInfoData = action.payload;
+        },
         setKeyInfoData: (state, action) => {
             state.keyInfoData = action.payload;
         },
@@ -53,6 +57,7 @@ export const readApiDataSlice = createSlice({
 })
 
 export const { 
+    setUserInfoData,
     setKeyInfoData,
     setBaseInfoData,
     setEduInfoData,

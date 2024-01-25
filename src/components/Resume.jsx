@@ -1,90 +1,84 @@
-import { Alert, Descriptions, List, Steps, Typography } from 'antd'
+import { Alert, Card, Descriptions, Image, List, Steps, Typography } from 'antd'
 import React,{useEffect} from 'react'
 import { retrieveAchvmntInfoDetails, retrieveCrtInfoDetails, retrieveEduInfoDetails, retrieveExpInfoDetails, retrieveProjInfoDetails, retrieveSkillInfoDetails } from '../api/retrieve.api'
 import {useSelector,useDispatch} from 'react-redux'
 import moment from 'moment'
 const {Title,Text} = Typography
 
-const Description = ({project}) => {
-    return (
-        <Steps progressDot direction='vertical'>
-            <Steps.Item 
-                title={
-                    <div className='flex flex-col'>
-                        <span className='font-semibold'>{project?.projectTitle}</span>
-                        <a href={project?.url} target='_blank'>{project?.url}</a>
-                    </div>                                          
-                }
-                description={
-                    <Alert
-                        message={
-                            <div className='flex flex-col m-4'>
-                                <div className='grid justify-items-stretch grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-4'>
-                                    {
-                                        project?.techUsed?.map((tech) => {
-                                            return (
-                                                <Alert className='w-full text-center' message={tech} type="success" />                                                           
-                                            );
-                                        })
-                                    }
-                                </div>
-                                <Text type="secondary">{project?.description}</Text>
-                            </div>
-                        }
-                        type="info"
-                    />                                
-                }
-            />
-        </Steps>
-    )
-}
-
 const SkillsType = ({skills}) => {
     return (
-        <Alert
-            message={
-                <div className='m-4 text-center'>
-                    <dt className="text-sm my-4 text-center font-medium leading-6 text-gray-900">{skills?.name}</dt>
-                    <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0 grid justify-items-stretch grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-                        {
-                            skills?.keywords?.map((key) => {
+        <div className='flex mb-[15px]'>
+            <div className='flex gap-x-[15px]'>
+                {
+                    skills?.keywords 
+                    ?
+                        skills?.keywords?.map((key) => {
+                            return (
+                                <Alert 
+                                    message={key} 
+                                    type="success" 
+                                    className='min-w-[100px] text-center' 
+                                />
+                            );
+                        })
+                    :   <></>
+                }
+                {
+                        skills?.techUsed
+                        ?
+                            skills?.techUsed?.map((key) => {
                                 return (
-                                    <Alert message={key} type="success" />
+                                    <Alert 
+                                        message={key} 
+                                        type="success" 
+                                        className='min-w-[100px] text-center' 
+                                    />
                                 );
                             })
-                        }                                                
-                    </dd>
-                </div>           
-            }
-            type="info"
-        />                                
+                        :   <></>
+                }    
+            </div>
+        </div>                            
     )
 }
 
 const AchvmntAndCrtType = ({data}) => {
     return (
-        <Steps progressDot direction='vertical'>
-            <Steps.Item 
-                title={
-                    <div className="px-4 sm:px-0 flex flex-col">
-                        <span className='font-semibold'>
-                            {data?.achvmntTitle ? data?.achvmntTitle : data?.certName}
-                        </span>
+        <Card 
+            bordered={false}
+            style={{background:'transparent', color:'#fff'}}
+        >
+            <div className='flex flex-col lg:flex-row lg:gap-x-[15px]'>
+                <div className='mb-[15px]'>
+                    <Image
+                        width={80}
+                        height={80}
+                        preview={false}
+                        className='rounded-[20px]'
+                        src={data?.achvmntProfileCtrl ? data?.achvmntProfileCtrl : data?.crtProfileCtrl}
+                    />
+                </div>
+                <div className=''>
+                    <span className='font-semibold text-xl'>
+                        {data?.achvmntTitle ? data?.achvmntTitle : data?.certName}
+                    </span>
+                    <div className='text-lg flex flex-col'>
                         <a href={data?.url} target='_blank'>{data?.url}</a>                
+                        <span>
+                            <ul>
+                            {
+                                data?.description?.split("-) ")?.map(desc => {
+                                    return (
+                                        <li>{desc}</li>
+                                    )
+                                })
+                            }
+                            </ul>
+                        </span>
                     </div>
-                }
-                description={
-                    <Alert
-                        message={
-                            <div>
-                                <Text type="secondary">{data?.description}</Text>
-                            </div>
-                        }
-                        type="info"
-                    />                                
-                }
-            />
-        </Steps>
+                </div>
+            </div>
+        </Card>
     )
 }
 
@@ -109,149 +103,210 @@ const Resume = () => {
 
   return (
     eduInfo && expInfo &&
-        <div className='container'>
+        <div className='container xl:px-[150px]'>
             <Typography>
-                <div className='grid grid-cols-1 md:grid-cols-2'>
-                    
-                    <Descriptions title="Education">
-                        <Descriptions.Item>
-                            <Steps direction="vertical">
-                                {
-                                    eduInfo?.map((edu,index) => {
-                                        return (
-                                            <Steps.Item 
-                                                key={index+1} 
-                                                title={
-                                                    <span className='font-semibold'>{edu?.degreeName}</span>
-                                                }
-                                                description={
-                                                    <Alert
-                                                        message={
-                                                            <div className='flex flex-col'>
-                                                                <span>{edu?.courseName}</span>
-                                                                <span>{edu?.university}</span>
-                                                                <span>{edu?.graduationYear}</span>
-                                                            </div>
-                                                        }
-                                                        type="info"
-                                                    />
-                                                }
-                                            />
-                                        );
-                                    })
-                                }
-                            </Steps>
-                        </Descriptions.Item>
-                    </Descriptions>
-
-                    <Descriptions title="Experience">
-                        <Descriptions.Item>
-                            <Steps direction="vertical">
-                                {
-                                    expInfo?.map((exp,index) => {
-                                        return (
-                                            <Steps.Item 
-                                                key={index+1} 
-                                                title={
-                                                    <span className='font-semibold'>{exp?.companyName}</span>                                                   
-                                                }
-                                                description={
-                                                    <Alert
-                                                        message={
-                                                            <div className='flex flex-col'>
-                                                                <Text>{exp?.position}</Text>
-                                                                <Text>
-                                                                    {moment(exp?.startDate).format("DD-MM-YYYY")} - {exp?.currentlyWorking ? "Present" : moment(exp?.endDate).format("DD-MM-YYYY")}
-                                                                </Text>
-                                                                <Text type="secondary">{exp?.description}</Text>
-                                                            </div>
-                                                        }
-                                                        type="info"
-                                                    />
-                                                    
-                                                }
-                                            />
-                                        );
-                                    })
-                                }
-                            </Steps>
-                        </Descriptions.Item>
-                    </Descriptions>
-
-                </div>
-
                 
-                <Descriptions title="Projects" className='my-12'>
-                    <Descriptions.Item>
-                        <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'>
+                <div className='grid grid-cols-1'>
+
+                    <Card 
+                        bordered={false} 
+                        style={{background:'transparent', color:'#fff'}}
+                    >
+                        <span className='text-2xl'>Experience</span>
                         {
-                            projInfo?.map((project) => {
+                            expInfo?.map((exp,index) => {
                                 return (
-                                    <Description project={project} />
-                                )
+                                    <Card 
+                                        key={index} 
+                                        bordered={false}
+                                        // className='mt-[25px]'
+                                        style={{background:'transparent', color:'#fff'}}
+                                    >
+                                        <div className='flex flex-col lg:flex-row lg:gap-x-[15px]'>
+                                            <div className='mb-[15px]'>
+                                                <Image
+                                                    width={80}
+                                                    height={80}
+                                                    preview={false}
+                                                    className='rounded-[20px]'
+                                                    src={exp?.companyProfileCtrl}
+                                                />
+                                            </div>
+                                            <div className=''>
+                                                <span className='font-semibold text-xl'>{exp?.companyName}</span>
+                                                <div className='text-lg flex flex-col'>
+                                                    <span>{exp?.position}</span>
+                                                    <span>
+                                                        {moment(exp?.startDate).format("DD-MM-YYYY")} - {exp?.currentlyWorking ? "Present" : moment(exp?.endDate).format("DD-MM-YYYY")}
+                                                    </span>
+                                                    <span>
+                                                        <ul>
+                                                        {
+                                                            exp?.description?.split("-) ")?.map(desc => {
+                                                                return (
+                                                                    <li>{desc}</li>
+                                                                )
+                                                            })
+                                                        }
+                                                        </ul>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                );
                             })
                         }
-                        </div>
-                    </Descriptions.Item>
-                </Descriptions>
+                    </Card>
 
-                <Descriptions title="Skills" className='my-12'>
-                    <Descriptions.Item>
-                        <div className='grid gap-4 grid-cols-1'>
+                    <Card 
+                        bordered={false} 
+                        style={{background:'transparent', color:'#fff'}}
+                    >
+                        <span className='text-2xl'>Education</span>
+                        <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
                             {
-                                skillsInfo[0]?.technical
-                                ?
-                                    <Steps progressDot direction='vertical'>
-                                        <Steps.Item 
-                                            title={
-                                                <span className='font-semibold'>Technical</span>
-                                            }
-                                            description={
-                                                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-                                                {
-                                                    skillsInfo[0]?.technical?.map((technical) => {
-                                                        return (
-                                                            <SkillsType skills={technical} />
-                                                        );
-                                                    })   
-                                                }
-                                                </div>                           
-                                            }
-                                        />
-                                    </Steps>
-                                :   <></>
-                            }   
-                            {
-                                skillsInfo[0]?.behaivioral
-                                ?
-                                    <Steps progressDot direction='vertical'>
-                                        <Steps.Item 
-                                            title={
-                                                <span className='font-semibold'>Behavioral</span>
-                                            }
-                                            description={
-                                                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-                                                {
-                                                    skillsInfo[0]?.behaivioral?.map((behaivioral) => {
-                                                        return (
-                                                            <SkillsType skills={behaivioral} />
-                                                        );
-                                                    })    
-                                                }                          
+                                eduInfo?.map((edu,index) => {
+                                    return (
+                                        <Card 
+                                            key={index} 
+                                            bordered={false}
+                                            style={{background:'transparent', color:'#fff'}}
+                                        >
+                                            <div className='flex flex-col lg:flex-row lg:gap-x-[15px]'>
+                                                <div className='mb-[15px]'>
+                                                    <Image
+                                                        width={80}
+                                                        height={80}
+                                                        preview={false}
+                                                        className='rounded-[20px]'
+                                                        src={edu?.universityProfileCtrl}
+                                                    />
                                                 </div>
-                                            }
-                                        />
-                                    </Steps>
-                                :   <></>
+                                                <div className=''>
+                                                    <span className='font-semibold text-xl'>{edu?.degreeName}</span>
+                                                    <div className='text-lg flex flex-col'>
+                                                        <span>{edu?.courseName}</span>
+                                                        <span>{edu?.university}</span>
+                                                        <span>{edu?.graduationYear}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Card>
+                                    );
+                                })
                             }
                         </div>
-                    </Descriptions.Item>
-                </Descriptions>
+                    </Card>
 
-                <div className='grid grid-cols-1 md:grid-cols-2'>
+                </div>
+                
+                <Card 
+                    bordered={false} 
+                    style={{background:'transparent', color:'#fff'}}
+                >
+                    <span className='text-2xl'>Projects</span>
+                    {
+                        projInfo?.map((project,index) => {
+                            return (
+                                <Card 
+                                    key={index} 
+                                    bordered={false}
+                                    // className='mt-[25px]'
+                                    style={{background:'transparent', color:'#fff'}}
+                                >
+                                    <div className='flex flex-col lg:flex-row lg:gap-x-[15px]'>
+                                        <div className='mb-[15px]'>
+                                            <Image
+                                                width={80}
+                                                height={80}
+                                                preview={false}
+                                                className='rounded-[20px]'
+                                                src={project?.projectImgCtrl}
+                                            />
+                                        </div>
+                                        <div className=''>
+                                            <span className='font-semibold text-xl'>{project?.projectTitle}</span>
+                                            <div className='text-lg flex flex-col space-y-[5px]'>
+                                                <a href={project?.url} target='_blank'>{project?.url}</a>
+                                                <SkillsType skills={project} />
+                                                <span>
+                                                        <ul>
+                                                        {
+                                                            project?.description?.split("-) ")?.map(desc => {
+                                                                return (
+                                                                    <li>{desc}</li>
+                                                                )
+                                                            })
+                                                        }
+                                                        </ul>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card>
+                            );
+                        })
+                    }
+                </Card>
+
+                <div className='grid grid-cols-1 xl:grid-cols-2'>
+                    {
+                        skillsInfo[0]?.technical
+                        ?
+                            <Card 
+                                bordered={false} 
+                                style={{background:'transparent', color:'#fff'}}
+                            >
+                                <span className='text-2xl'>Technical Skills</span>
+                                <Card
+                                    bordered={false} 
+                                    style={{background:'transparent', color:'#fff'}}
+                                > 
+                                    {
+                                        skillsInfo[0]?.technical?.map((technical) => {
+                                            return (
+                                                <SkillsType skills={technical} />
+                                            );
+                                        })
+                                    }  
+                                </Card>
+                            </Card>                        
+                        :   <></>
+                    }   
+                    {
+                        skillsInfo[0]?.behaivioral
+                        ?
+                            <Card 
+                                bordered={false} 
+                                style={{background:'transparent', color:'#fff'}}
+                            >
+                                <span className='text-2xl'>Behavioral Skills</span>
+                                <Card
+                                    bordered={false} 
+                                    style={{background:'transparent', color:'#fff'}}
+                                > 
+                                    {
+                                        skillsInfo[0]?.behaivioral?.map((behaivioral) => {
+                                            return (
+                                                <SkillsType skills={behaivioral} />
+                                            );
+                                        })
+                                    }  
+                                </Card>
+                            </Card> 
+                        :   <></>
+                    }
+                </div>
+
+                <div className='grid grid-cols-1'>
                     
-                    <Descriptions title="Achievements" className='my-12'>
-                        <Descriptions.Item>
+                    <Card 
+                        bordered={false} 
+                        style={{background:'transparent', color:'#fff'}}
+                    >
+                        <span className='text-2xl'>Achievements</span>
+                        <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
                             {
                                 achvmntInfo?.map((achieves) => {
                                     return (
@@ -259,11 +314,10 @@ const Resume = () => {
                                     );
                                 })
                             }
-                            
-                        </Descriptions.Item>
-                    </Descriptions>
+                        </div>
+                    </Card>
 
-                    <Descriptions title="Certifications" className='my-12'>
+                    {/* <Descriptions title="Certifications" className='my-12'>
                         <Descriptions.Item>
                             {
                                 certInfo?.map((certs) => {
@@ -273,7 +327,7 @@ const Resume = () => {
                                 })
                             }
                         </Descriptions.Item>
-                    </Descriptions>
+                    </Descriptions> */}
 
                 </div>
 

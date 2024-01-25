@@ -18,42 +18,57 @@ const Contact = () => {
 
   return (
     baseInfo[0]?.key  &&
-      <div className='container my-12'>
-          <Descriptions title="Contact"></Descriptions>
-            <div className='w-full testi-alert p-12'>
-              <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>                    
-                  <Card className='flex justify-center'>
-                    <MailOutlined className='text-xl flex justify-center mb-4' />
-                    <a
-                      className='font-semibold'
-                      target='_blank' 
-                      href={baseInfo[0]?.userEmailInfo}
-                    >
-                        {baseInfo[0]?.userEmailInfo}
-                    </a>
-                  </Card>   
-                  <Card className='flex justify-center'>
-                    <LinkedinOutlined className='text-xl flex justify-center mb-4' />
-                    <a
-                      className='font-semibold'
-                      target='_blank' 
-                      href={baseInfo[0]?.linkedinInfoCtrl}
-                    >
-                        {baseInfo[0]?.linkedinInfoCtrl}
-                    </a>
-                  </Card>   
-                  <Card className='flex justify-center'>
-                    <TwitterOutlined className='text-xl flex justify-center mb-4' />
-                    <a
-                      className='font-semibold'
-                      target='_blank' 
-                      href={baseInfo[0]?.twitterInfoCtrl}
-                    >
-                        {baseInfo[0]?.twitterInfoCtrl}
-                    </a>
-                  </Card>                    
-                </div>
-            </div>
+      <div className='container my-12 xl:px-[150px]'>
+        <Card 
+            bordered={false}
+            // className='mt-[25px]'
+            style={{background:'transparent', color:'#fff'}}
+        >
+          <div className='flex flex-col xl:flex-row gap-4'>                    
+            <Card 
+              // bordered={false}
+              style={{background:'transparent', color:'#fff'}}
+              className='flex justify-center border-[1px] xl:border-none'
+            >
+              <MailOutlined className='text-xl flex justify-center mb-4' />
+              <a
+                className='font-semibold'
+                target='_blank' 
+                href={baseInfo[0]?.userEmailInfo}
+              >
+                  {baseInfo[0]?.userEmailInfo}
+              </a>
+            </Card>   
+            <Card 
+              bordered={false}
+              style={{background:'transparent', color:'#fff'}}
+              className='flex justify-center border-[1px] xl:border-none'
+            >
+              <LinkedinOutlined className='text-xl flex justify-center mb-4' />
+              <a
+                className='font-semibold'
+                target='_blank' 
+                href={baseInfo[0]?.linkedinInfoCtrl}
+              >
+                  {baseInfo[0]?.linkedinInfoCtrl}
+              </a>
+            </Card>   
+            <Card 
+              bordered={false}
+              style={{background:'transparent', color:'#fff'}}
+              className='flex justify-center border-[1px] xl:border-none'
+            >
+              <TwitterOutlined className='text-xl flex justify-center mb-4' />
+              <a
+                className='font-semibold'
+                target='_blank' 
+                href={baseInfo[0]?.twitterInfoCtrl}
+              >
+                  {baseInfo[0]?.twitterInfoCtrl}
+              </a>
+            </Card>                    
+          </div>
+        </Card>           
       </div>
   )
 }
