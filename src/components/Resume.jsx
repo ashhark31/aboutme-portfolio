@@ -48,7 +48,7 @@ const AchvmntAndCrtType = ({data}) => {
             bordered={false}
             style={{background:'transparent', color:'#fff'}}
         >
-            <div className='flex flex-col lg:flex-row lg:gap-x-[15px]'>
+            <div className='grid grid-cols-1'>
                 <div className='mb-[15px]'>
                     <Image
                         width={80}
