@@ -8,7 +8,7 @@ const {Title,Text} = Typography
 const SkillsType = ({skills}) => {
     return (
         <div className='flex mb-[15px]'>
-            <div className='flex gap-x-[15px]'>
+            <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[15px] '>
                 {
                     skills?.keywords 
                     ?

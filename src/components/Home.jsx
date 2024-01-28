@@ -39,9 +39,9 @@ const Home = () => {
                                 top: '140px',
                                 color: '#fff',
                             }}
-                            className='flex flex-col justify-center xl:justify-right'
+                            className='flex flex-col justify-center xl:justify-right mt-[20px] 2xl:mt-0'
                         >
-                            <div className='text-[100px] font-bold'>
+                            <div className='font-bold text-[80px] 2xl:text-[100px] '>
                                 <h1>
                                     {baseInfo[0]?.userFirstName?.split(" ")[0]}
                                 </h1>
